@@ -1,0 +1,44 @@
+body {
+    background-color: black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-family: 'Lucida Console', 'Courier New', monospace;
+}
+
+.contenedorPrincipal {
+    width: 500px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    flex-direction: row;
+
+}
+
+button {
+    height: 200px;
+    width: 200px;
+    margin: 20px;
+    border: none;
+    border-radius: 20px;
+
+    margin: 3px;
+}
+
+#red {
+    background-color: red;
+}
+
+#blue {
+    background-color: blue;
+}
+
+#green {
+    background-color: green;
+}
+
+#yellow {
+    background-color: yellow;
+}
