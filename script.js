@@ -14,7 +14,7 @@ var yellow = document.getElementById('yellow');
 
 var button = [red, green, blue, yellow];
 
-
+// Añade los event listeners a los botones
 red.addEventListener('click', handleClick);
 green.addEventListener('click', handleClick);
 blue.addEventListener('click', handleClick);
@@ -23,14 +23,8 @@ yellow.addEventListener('click', handleClick);
 
 // Inicia el juego pidiendo el nombre del jugador
 function startGame() {
-    playerName = prompt('Ingresa tu nombre:');
-
-    while (!playerName || playerName.trim().length < 3) {
-        playerName = prompt('Por favor, ingresa un nombre válido (mínimo 3 letras):');
-    }
     setTimeout(() => {
         if (state === 'pressKey' || state === 'gameOver') {
-
 
             level = 0;
             patron = [];
@@ -43,8 +37,7 @@ function startGame() {
 
 // Maneja los clics en los botones
 function handleClick(event) {
-
-
+    
     if (state === 'pressKey' || state === 'gameOver') {
         startGame();
         buttonPress(event);
@@ -91,9 +84,9 @@ function buttonPress(event) {
                 newLevel();
             }
         } else {
-            modal.style.display = 'flex';
-            document.getElementById("modalMessage").innerHTML =
-                 `<span class="playerName">${playerName}</span>, perdiste en el nivel <b>${level}</b>!`;
+            lostModal.style.display = 'flex';
+            document.getElementById("lostMessage").innerHTML =
+                `<span class="playerName">${playerName}</span>, perdiste en el nivel <b>${level}</b>!`;
             state = 'gameOver';
             title.innerText = 'Perdiste!! Presiona cualquier color para reiniciar';
 
@@ -102,26 +95,68 @@ function buttonPress(event) {
 }
 
 // Crea el modal de fin de juego
-function createModal() {
-    const modal = document.createElement("div");
-    modal.id = "modal";
+function createLostModal() {
+    const lostModal = document.createElement("div");
+    lostModal.id = "lostModal";
 
-    modal.innerHTML = `
+    lostModal.innerHTML = `
       <div class="box">
-        <p id="modalMessage" style="font-size:18px; margin-bottom:10px;">
+        <p id="lostMessage" style="font-size:18px; margin-bottom:10px;">
         </p>
         <button id="retryBtn">Reiniciar</button>
       </div>
     `;
 
-    document.body.appendChild(modal);
+    document.body.appendChild(lostModal);
 
     document.getElementById("retryBtn").addEventListener("click", () => {
-        modal.style.display = "none";
+        lostModal.style.display = "none";
 
     });
 
 }
-createModal();
 
 
+function createNameModal() {
+    const nameModal = document.createElement("div");
+    nameModal.id = "nameModal";
+    nameModal.style.display = "flex";
+
+    nameModal.innerHTML = `
+        <div class="box">
+            <p> Ingresa tu nombre para comenzar a jugar: </p>
+            <input type="text" id="nameInput" placeholder="Tu nombre" />
+            <p id="nameError" class="nameError" style="color:red; font-size:10px; display:none; margin-top:5px;">
+                El nombre debe tener al menos 3 letras
+            </p>
+            <button id="startBtn" disabled>Comenzar</button>
+        </div>
+    `;
+
+    document.body.appendChild(nameModal);
+
+    const startBtn = document.getElementById("startBtn");
+    const nameInput = document.getElementById("nameInput");
+    const nameError = document.getElementById("nameError");
+
+
+    nameInput.addEventListener("input", () => {
+        if (nameInput.value.trim().length >= 3) {
+            startBtn.disabled = false;
+            nameError.style.display = "none";
+        } else {
+            startBtn.disabled = true;
+            nameError.style.display = "block";
+        }
+    });
+
+    startBtn.addEventListener("click", () => {
+        playerName = nameInput.value.trim();
+        nameModal.style.display = "none";
+        startGame();
+    });
+}
+
+
+createLostModal();
+createNameModal();
