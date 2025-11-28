@@ -11,22 +11,37 @@ var yellow = document.getElementById('yellow');
 
 var button = [red, green, blue, yellow];
 
-document.addEventListener('keypress', startGame);
-red.addEventListener('click', buttonPress);
-green.addEventListener('click', buttonPress);
-blue.addEventListener('click', buttonPress);
-yellow.addEventListener('click', buttonPress);
+
+red.addEventListener('click', handleClick);
+green.addEventListener('click', handleClick);
+blue.addEventListener('click', handleClick);
+yellow.addEventListener('click', handleClick);
+
+
 
 function startGame() {
-    if (state === 'pressKey' || state === 'gameOver') {
+setTimeout(() => {    if (state === 'pressKey' || state === 'gameOver') {
 
         level = 0;
         patron = [];
-        userIndex = 0;  
+        userIndex = 0;
 
         newLevel();
-    }
+    }}, 300);
 }
+
+function handleClick(event) {
+
+
+    if (state === 'pressKey' || state === 'gameOver') {
+        startGame();
+        buttonPress(event);
+        return;
+    }
+
+    buttonPress(event);
+}
+
 
 function newLevel() {
     state = 'waitingPatron';
@@ -39,7 +54,7 @@ function newLevel() {
         lightButton(nextButton);
         patron.push(nextButton);
         userIndex = 0;
-        
+
         state = 'waitingUser';
 
     }, 500);
@@ -59,14 +74,40 @@ function buttonPress(event) {
         if (button === patron[userIndex]) {
             userIndex = userIndex + 1;
             lightButton(button);
-            if (userIndex === patron.length ) {
+            if (userIndex === patron.length) {
                 newLevel();
             }
         } else {
-        title.innerText = 'Perdiste!! Presiona cualquier tecla para reiniciar.';
+            modal.style.display = 'flex';
+            title.innerText = 'Perdiste!!';
             state = 'gameOver';
         }
     }
 }
 
-        
+
+
+
+function createModal() {
+    const modal = document.createElement("div");
+    modal.id = "modal";
+
+    modal.innerHTML = `
+      <div class="box">
+        <p id="modalMessage" style="font-size:18px; margin-bottom:10px;">¡Perdiste!</p>
+        <button id="retryBtn">Reiniciar</button>
+      </div>
+    `;
+
+    document.body.appendChild(modal);
+
+    document.getElementById("retryBtn").addEventListener("click", () => {
+        modal.style.display = "none";
+        startGame();
+    });
+}
+
+
+createModal();
+
+
