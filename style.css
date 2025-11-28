@@ -23,8 +23,13 @@ button {
     margin: 20px;
     border: none;
     border-radius: 20px;
-
     margin: 3px;
+    cursor: pointer;
+}
+
+button:active {
+    transform: scale(0.98);
+    box-shadow: 0 2px 5px rgba(255, 255, 255, 0.865);
 }
 
 #red {
@@ -41,4 +46,25 @@ button {
 
 #yellow {
     background-color: yellow;
+}
+
+.active {
+    opacity: 0.5;
+    transition: 0.2s;
+}
+
+#red.active {
+    background: rgb(255, 70, 70);
+}
+
+#green.active {
+    background: rgb(35, 84, 35);
+}
+
+#blue.active {
+    background: rgb(70, 70, 255);
+}
+
+#yellow.active {
+    background: rgb(255, 255, 50);
 }
