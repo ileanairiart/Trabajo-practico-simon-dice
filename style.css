@@ -1,3 +1,5 @@
+
+/* Estilos generales */
 body {
     background-color: black;
     display: flex;
@@ -17,6 +19,7 @@ body {
 
 }
 
+/* Estilos de los botones */
 button {
     height: 200px;
     width: 200px;
@@ -69,7 +72,7 @@ button:active {
     background: rgb(255, 255, 50);
 }
 
-
+/* Estilos del modal */
 #modal {
   position: fixed;
   top: 0;
@@ -111,4 +114,9 @@ button:active {
 #modal .box p {
   color: black; 
   font-size: 18px;
+}
+
+.playerName {
+    color: #ff4444;
+    font-weight: bold;
 }
