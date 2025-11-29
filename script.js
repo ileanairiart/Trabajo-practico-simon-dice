@@ -4,6 +4,7 @@ var patron = [];
 var level = 0;
 var userIndex = 0;
 var playerName = '';
+var userTunr = false;
 // Elementos del DOM
 var title = document.getElementById('title');
 var red = document.getElementById('red');
@@ -39,25 +40,47 @@ function handleClick(event) {
     buttonPress(event);
 }
 
+function showSecuence() {
+    state = 'showingPatron';
+    userTunr = false;
+
+    var i = 0;
+
+    function iluminate() {
+        var btn = patron[i];
+        lightButton(btn);
+        setTimeout(function() {
+            i++;
+            if (i < patron.length) {
+                iluminate();
+            } else {
+                state = 'waitingUser';
+                userTunr = true;
+            }
+        }, 600);
+    }
+    iluminate();
+}
+
 // Inicia un nuevo nivel
 function newLevel() {
     state = 'waitingPatron';
-    setTimeout(() => {
+    setTimeout(function () {
         level = level + 1;
         title.innerText = 'Nivel ' + level;
         var nextColor = Math.floor(Math.random() * 4);
         var nextButton = button[nextColor];
-        lightButton(nextButton);
         patron.push(nextButton);
         userIndex = 0;
         state = 'waitingUser';
+        showSecuence();
     }, 500);
 }
 
 // Ilumina un botón específico
 function lightButton(button) {
     button.classList.add('active');
-    setTimeout(() => {
+    setTimeout(function () {
         button.classList.remove('active');
     }, 300);
 }
@@ -84,7 +107,7 @@ function buttonPress(event) {
 
 // Crea el modal de fin de juego
 function createLostModal() {
-    const lostModal = document.createElement("div");
+    var lostModal = document.createElement("div");
     lostModal.id = "lostModal";
     lostModal.innerHTML = `
       <div class="box">
@@ -100,7 +123,7 @@ function createLostModal() {
 }
 
 function createNameModal() {
-    const nameModal = document.createElement("div");
+    var nameModal = document.createElement("div");
     nameModal.id = "nameModal";
     nameModal.style.display = "flex";
     nameModal.innerHTML = `
@@ -114,10 +137,10 @@ function createNameModal() {
         </div>
     `;
     document.body.appendChild(nameModal);
-    const startBtn = document.getElementById("startBtn");
-    const nameInput = document.getElementById("nameInput");
-    const nameError = document.getElementById("nameError");
-    nameInput.addEventListener("input", () => {
+    var startBtn = document.getElementById("startBtn");
+    var nameInput = document.getElementById("nameInput");
+    var nameError = document.getElementById("nameError");
+    nameInput.addEventListener("input", function () {
         if (nameInput.value.trim().length >= 3) {
             startBtn.disabled = false;
             nameError.style.display = "none";
@@ -126,10 +149,10 @@ function createNameModal() {
             nameError.style.display = "block";
         }
     });
-    startBtn.addEventListener("click", () => {
+    startBtn.addEventListener("click", function () {
         playerName = nameInput.value.trim();
         nameModal.style.display = "none";
-        startGame();
+
     });
 }
 
