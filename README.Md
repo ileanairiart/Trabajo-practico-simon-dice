@@ -8,5 +8,5 @@ Interfaz desarrollada con **HTML, CSS usando Flexbox**
 -JS
 
 ## Estado
-Versión inicial. Pendiente de optimizar estilos y comenzar a desarrollar la parte de backend.
+Versión inicial, juego en funcinamiento con su respectivo conteo de niveles. Pendiente de optimizar estilos.
 
