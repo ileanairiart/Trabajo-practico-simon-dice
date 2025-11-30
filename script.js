@@ -12,6 +12,41 @@ var green = document.getElementById('green');
 var blue = document.getElementById('blue');
 var yellow = document.getElementById('yellow');
 var button = [red, green, blue, yellow];
+// Modals partida perdida y nombre jugador
+var lostModal = document.getElementById('lostModal');
+var nameModal = document.getElementById('nameModal');
+// Botones modals
+var nameInput = document.getElementById('nameInput');
+var nameError = document.getElementById('nameError');
+var startBtn = document.getElementById('startBtn');
+var retryBtn = document.getElementById('retryBtn');
+//eventos modals
+nameInput.addEventListener('input', function () {
+    if (nameInput.value.trim().length >= 3) {
+        startBtn.disabled = false;
+        nameError.style.display = 'none';
+    } else {
+        startBtn.disabled = true;
+        nameError.style.display = 'block';
+    }
+});
+startBtn.addEventListener('click', function () {
+    playerName = nameInput.value.trim();
+    nameModal.style.display = 'none';
+}
+);
+retryBtn.addEventListener('click', function () {
+    lostModal.style.display = 'none';
+    resetGame();
+});
+// Reinicia el juego
+function resetGame() {
+    patron = [];
+    level = 0;
+    userIndex = 0;
+    title.innerText = 'Presiona cualquier color para iniciar, ' + playerName;
+    state = 'pressKey';
+}
 // Añade los event listeners a los botones
 red.addEventListener('click', handleClick);
 green.addEventListener('click', handleClick);
@@ -32,6 +67,10 @@ function startGame() {
 
 // Maneja los clics en los botones
 function handleClick(event) {
+
+    if(nameModal.style.display === 'flex'){
+        return;
+    }
     if (state === 'pressKey' || state === 'gameOver') {
         startGame();
         buttonPress(event);
@@ -48,15 +87,18 @@ function showSecuence() {
 
     function iluminate() {
         var btn = patron[i];
-        lightButton(btn);
-        setTimeout(function() {
-            i++;
-            if (i < patron.length) {
-                iluminate();
-            } else {
-                state = 'waitingUser';
-                userTunr = true;
-            }
+        setTimeout(function () {
+            lightButton(btn);
+            setTimeout(function () {
+                i++;
+                if (i < patron.length) {
+                    iluminate();
+                } else {
+                    userTunr = true;
+                    state = 'waitingUser';
+
+                }
+            }, 400);
         }, 600);
     }
     iluminate();
@@ -98,63 +140,12 @@ function buttonPress(event) {
         } else {
             lostModal.style.display = 'flex';
             document.getElementById("lostMessage").innerHTML =
-                `<span class="playerName">${playerName}</span>, perdiste en el nivel <b>${level}</b>!`;
+                `<span class="playerName">${playerName}</span>, 
+                perdiste en el nivel <b>${level}</b>!`;
+            lostModal.style.display = 'flex';
             state = 'gameOver';
             title.innerText = 'Perdiste!! Presiona cualquier color para reiniciar';
         }
     }
 }
 
-// Crea el modal de fin de juego
-function createLostModal() {
-    var lostModal = document.createElement("div");
-    lostModal.id = "lostModal";
-    lostModal.innerHTML = `
-      <div class="box">
-        <p id="lostMessage" style="font-size:18px; margin-bottom:10px;">
-        </p>
-        <button id="retryBtn">Reiniciar</button>
-      </div>
-    `;
-    document.body.appendChild(lostModal);
-    document.getElementById("retryBtn").addEventListener("click", () => {
-        lostModal.style.display = "none";
-    });
-}
-
-function createNameModal() {
-    var nameModal = document.createElement("div");
-    nameModal.id = "nameModal";
-    nameModal.style.display = "flex";
-    nameModal.innerHTML = `
-        <div class="box">
-            <p> Ingresa tu nombre para comenzar a jugar: </p>
-            <input type="text" id="nameInput" placeholder="Tu nombre" />
-            <p id="nameError" class="nameError" style="color:red; font-size:10px; display:none; margin-top:5px;">
-                El nombre debe tener al menos 3 letras
-            </p>
-            <button id="startBtn" disabled>Comenzar</button>
-        </div>
-    `;
-    document.body.appendChild(nameModal);
-    var startBtn = document.getElementById("startBtn");
-    var nameInput = document.getElementById("nameInput");
-    var nameError = document.getElementById("nameError");
-    nameInput.addEventListener("input", function () {
-        if (nameInput.value.trim().length >= 3) {
-            startBtn.disabled = false;
-            nameError.style.display = "none";
-        } else {
-            startBtn.disabled = true;
-            nameError.style.display = "block";
-        }
-    });
-    startBtn.addEventListener("click", function () {
-        playerName = nameInput.value.trim();
-        nameModal.style.display = "none";
-
-    });
-}
-
-createLostModal();
-createNameModal();

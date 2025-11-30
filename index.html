@@ -18,7 +18,24 @@
         <button id="green"></button>
         <button id="yellow"></button>
     </div>
-    
+
+    <div id="nameModal" style="display: flex;">
+        <div class="box">
+            <p>INGRESA TU NOMBRE PARA COMENZAR</p>
+            <input type="text" id="nameInput" placeholder="Tu Nombre">
+            <p id="nameError" class="nameError" style="font-size: 10px;">
+                EL NOMBRE DEBE TENER AL MENOS 3 LETRAS</p>
+            <button id="startBtn">COMENZAR</button>
+        </div>
+    </div>
+
+    <div id="lostModal">
+        <div class="box">
+            <p id="lostMessage"></p>
+            <button id="retryBtn">REINICIAR</button>
+        </div>
+    </div>
+
     <script src="script.js"></script>
 
 </body>

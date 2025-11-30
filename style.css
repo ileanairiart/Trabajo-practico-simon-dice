@@ -1,4 +1,10 @@
 /* Estilos generales */
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
 body {
   background-color: rgba(0, 0, 0);
   display: flex;
@@ -89,14 +95,13 @@ button:active {
   padding: 25px;
   border-radius: 12px;
   text-align: center;
-  max-height: 250px;
   max-width: 200px;
-  width: 50%;
+  width: 90%;
   font-family: sans-serif;
 }
 
 #nameModal input {
-  width: 60%;
+  width: 80%;
   padding: 8px 10px;
   margin-bottom: 15px;
   border: 1px solid rgba(204, 204, 204);
@@ -114,7 +119,13 @@ button:active {
   cursor: pointer;
   font-weight: bold;
   width: 100px;
-  height: 100px;
+  height: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
 }
 
 #nameModal button:hover {
