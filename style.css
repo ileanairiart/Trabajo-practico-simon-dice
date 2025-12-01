@@ -10,7 +10,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   color: rgba(255, 255, 255);
   font-family: 'Lucida Console', 'Courier New', monospace;
 }
@@ -98,6 +98,11 @@ button:active {
   max-width: 200px;
   width: 90%;
   font-family: sans-serif;
+    display: flex;                 
+  flex-direction: column;
+  align-items: center; 
+  justify-content: center;
+  text-align: center;
 }
 
 #nameModal input {
@@ -120,11 +125,17 @@ button:active {
   font-weight: bold;
   width: 100px;
   height: 100px;
+    display: flex;             
+  justify-content: center;      
+  align-items: center;
+  text-align: center;
+  padding: 0;
 }
 
 #nameModal .box p {
   color: rgba(0, 0, 0);
   font-size: 18px;
+  
 }
 
 #nameModal button:hover {
@@ -179,5 +190,5 @@ button:active {
 }
 
 .disableClick {
-    pointer-events: none;
+  pointer-events: none;
 }
