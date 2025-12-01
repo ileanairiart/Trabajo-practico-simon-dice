@@ -22,6 +22,12 @@ var startBtn = document.getElementById('startBtn');
 var retryBtn = document.getElementById('retryBtn');
 //eventos modals
 nameInput.addEventListener('input', function () {
+    if (nameInput.value.trim() === '') {
+        nameError.innerText = 'El nombre no puede estar vacío.';
+        nameError.style.display = 'none';
+        startBtn.disabled = true;
+        return;
+    }
     if (nameInput.value.trim().length >= 3) {
         startBtn.disabled = false;
         nameError.style.display = 'none';
@@ -31,6 +37,17 @@ nameInput.addEventListener('input', function () {
     }
 });
 startBtn.addEventListener('click', function () {
+    var value = nameInput.value.trim();
+    if (value.length === '') {
+        nameError.innerText = 'El nombre no puede estar vacío.';
+        nameError.style.display = 'block';
+        return;
+    }
+    if (value.length < 3) {
+        nameError.innerText = 'EL NOMBRE DEBE TENER AL MENOS 3 LETRAS';
+        nameError.style.display = 'block';
+        return;
+    }
     playerName = nameInput.value.trim();
     nameModal.style.display = 'none';
 }
@@ -55,6 +72,10 @@ yellow.addEventListener('click', handleClick);
 
 // Inicia el juego pidiendo el nombre del jugador
 function startGame() {
+    if (!playerName || playerName.trim().length < 3) {
+        nameModal.style.display = 'flex';
+        return;
+    }
     setTimeout(() => {
         if (state === 'pressKey' || state === 'gameOver') {
             level = 0;
@@ -67,13 +88,12 @@ function startGame() {
 
 // Maneja los clics en los botones
 function handleClick(event) {
-
-    if(nameModal.style.display === 'flex'){
+    if (!playerName || playerName.trim().length < 3) {
+        nameModal.style.display = 'flex';
         return;
     }
     if (state === 'pressKey' || state === 'gameOver') {
         startGame();
-        buttonPress(event);
         return;
     }
     buttonPress(event);
@@ -82,9 +102,9 @@ function handleClick(event) {
 function showSecuence() {
     state = 'showingPatron';
     userTunr = false;
-
+    button.forEach(btn => btn.classList.add('disableClick'));
     var i = 0;
-
+    title.innerText = 'Mostrando secuencia';
     function iluminate() {
         var btn = patron[i];
         setTimeout(function () {
@@ -94,12 +114,13 @@ function showSecuence() {
                 if (i < patron.length) {
                     iluminate();
                 } else {
+                    button.forEach(btn => btn.classList.remove('disableClick'));
+                    title.innerText = 'Tu turno, ' + playerName;
                     userTunr = true;
                     state = 'waitingUser';
-
                 }
             }, 400);
-        }, 600);
+        }, 400);
     }
     iluminate();
 }
@@ -129,6 +150,11 @@ function lightButton(button) {
 
 // Maneja la pulsación de botones por parte del usuario
 function buttonPress(event) {
+
+    if (!playerName || playerName.trim().length < 3) {
+        nameModal.style.display = 'flex';
+        return;
+    }
     if (state === 'waitingUser') {
         var button = event.target;
         if (button === patron[userIndex]) {
