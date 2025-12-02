@@ -215,13 +215,92 @@ button:active {
   }
 
   .contenedorPrincipal {
-    width: 100%;
+    width: 60%;
     padding: 10px;
+    gap: 4px;
   }
 
   button {
-    height: 150px;
-    width: 150px;
-    margin: 10px;
+    height: 130px;
+    width: 130px;
+    margin: 2px;
+  }
+}
+
+/* media querie para tablets horizontal y vertical*/
+@media (min-width: 480px) and (max-width: 1024px) {
+
+  h1 {
+    font-size: 34px;
+  }
+
+  h2 {
+    font-size: 22px;
+  }
+
+  .contenedorPrincipal {
+    width: 80%;
+    padding: 20px;
+    gap: 10px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 5px;
+  }
+  .contenedorPrincipal button {
+    flex: 0 0 45%;
+    margin: 5px;
+  }
+
+  button {
+    width: 160px;
+    height: 160px;
+    margin: 2px;
+  }
+
+  /* Modal */
+  #nameModal .box,
+  #lostModal .box {
+    width: 60%;
+    max-width: 350px;
+    padding: 25px;
+  }
+
+  #nameModal input {
+    font-size: 18px;
+  }
+
+  #nameModal button,
+  #lostModal button {
+    width: 100px;
+    height: 100px;
+    font-size: 16px;
+  }
+
+  #nameError {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 30px;
+  }
+
+  h2 {
+    font-size: 25px;
+    text-align: center;
+  }
+
+  .contenedorPrincipal {
+    width: 60%;
+    padding: 10px;
+    gap: 4px;
+  }
+
+  button {
+    height: 130px;
+    width: 130px;
+    margin: 2px;
   }
 }
