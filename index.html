@@ -9,7 +9,6 @@
 </head>
 
 <body>
-
     <H1>SIMON DICE</H1>
     <H2 id="title">PRESIONA CUALQUIER COLOR PARA EMPEZAR </H2>
     <div class="contenedorPrincipal">
@@ -18,17 +17,15 @@
         <button id="green"></button>
         <button id="yellow"></button>
     </div>
-
-    <div id="nameModal" style="display: flex;">
+    <div id="nameModal">
         <div class="box">
             <p>INGRESA TU NOMBRE PARA COMENZAR</p>
             <input type="text" id="nameInput" placeholder="Tu Nombre">
-            <p id="nameError" class="nameError" style="font-size: 10px;">
+            <p id="nameError" class="nameError">
                 EL NOMBRE DEBE TENER AL MENOS 3 LETRAS</p>
             <button id="startBtn">COMENZAR</button>
         </div>
     </div>
-
     <div id="lostModal">
         <div class="box">
             <p id="lostMessage"></p>
@@ -37,7 +34,6 @@
     </div>
 
     <script src="script.js"></script>
-
 </body>
 
 </html>

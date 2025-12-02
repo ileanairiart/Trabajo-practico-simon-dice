@@ -22,33 +22,38 @@ var startBtn = document.getElementById('startBtn');
 var retryBtn = document.getElementById('retryBtn');
 //eventos modals
 nameInput.addEventListener('input', function () {
-    if (nameInput.value.trim() === '') {
-        nameError.innerText = 'El nombre no puede estar vacío.';
-        nameError.style.display = 'none';
-        startBtn.disabled = true;
-        return;
-    }
-    if (nameInput.value.trim().length >= 3) {
-        startBtn.disabled = false;
-        nameError.style.display = 'none';
-    } else {
-        startBtn.disabled = true;
-        nameError.style.display = 'block';
-    }
-});
-startBtn.addEventListener('click', function () {
     var value = nameInput.value.trim();
-    if (value.length === '') {
-        nameError.innerText = 'El nombre no puede estar vacío.';
+    if (value.length === 0) {
+        nameError.innerText = 'EL NOMBRE NO DEBE ESTAR VACIO';
         nameError.style.display = 'block';
+        startBtn.disabled = true;
         return;
     }
     if (value.length < 3) {
         nameError.innerText = 'EL NOMBRE DEBE TENER AL MENOS 3 LETRAS';
         nameError.style.display = 'block';
+        startBtn.disabled = true;
+        return;
+    } else {
+        startBtn.disabled = false;
+        nameError.style.display = 'none';
+    }
+});
+startBtn.addEventListener('click', function () {
+    var value = nameInput.value.trim();
+    if (value.length === 0) {
+        nameError.innerText = 'EL NOMBRE NO DEBE ESTAR VACIO';
+        nameError.style.display = 'block';
+        startBtn.disabled = true;
         return;
     }
-    playerName = nameInput.value.trim();
+    if (value.length < 3) {
+        nameError.innerText = 'EL NOMBRE DEBE TENER AL MENOS 3 LETRAS';
+        nameError.style.display = 'block';
+        startBtn.disabled = true;
+        return;
+    }
+    playerName = value;
     nameModal.style.display = 'none';
 }
 );
@@ -69,7 +74,6 @@ red.addEventListener('click', handleClick);
 green.addEventListener('click', handleClick);
 blue.addEventListener('click', handleClick);
 yellow.addEventListener('click', handleClick);
-
 // Inicia el juego pidiendo el nombre del jugador
 function startGame() {
     if (!playerName || playerName.trim().length < 3) {
@@ -85,7 +89,6 @@ function startGame() {
         }
     }, 300);
 }
-
 // Maneja los clics en los botones
 function handleClick(event) {
     if (!playerName || playerName.trim().length < 3) {
@@ -98,7 +101,6 @@ function handleClick(event) {
     }
     buttonPress(event);
 }
-
 function showSecuence() {
     state = 'showingPatron';
     userTunr = false;
@@ -124,7 +126,6 @@ function showSecuence() {
     }
     iluminate();
 }
-
 // Inicia un nuevo nivel
 function newLevel() {
     state = 'waitingPatron';
@@ -139,7 +140,6 @@ function newLevel() {
         showSecuence();
     }, 500);
 }
-
 // Ilumina un botón específico
 function lightButton(button) {
     button.classList.add('active');
@@ -147,7 +147,6 @@ function lightButton(button) {
         button.classList.remove('active');
     }, 300);
 }
-
 // Maneja la pulsación de botones por parte del usuario
 function buttonPress(event) {
 
@@ -170,7 +169,6 @@ function buttonPress(event) {
                 perdiste en el nivel <b>${level}</b>!`;
             lostModal.style.display = 'flex';
             state = 'gameOver';
-            title.innerText = 'Perdiste!! Presiona cualquier color para reiniciar';
         }
     }
 }
