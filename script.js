@@ -117,7 +117,7 @@ function showSecuence() {
                     iluminate();
                 } else {
                     button.forEach(btn => btn.classList.remove('disableClick'));
-                    title.innerText = 'Tu turno, ' + playerName;
+                    title.innerText = 'Tu turno, ' + playerName + ' (Nivel ' + level + ')';
                     userTunr = true;
                     state = 'waitingUser';
                 }
@@ -131,7 +131,6 @@ function newLevel() {
     state = 'waitingPatron';
     setTimeout(function () {
         level = level + 1;
-        title.innerText = 'Nivel ' + level;
         var nextColor = Math.floor(Math.random() * 4);
         var nextButton = button[nextColor];
         patron.push(nextButton);
