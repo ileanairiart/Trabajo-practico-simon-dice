@@ -11,6 +11,12 @@ var red = document.getElementById('red');
 var green = document.getElementById('green');
 var blue = document.getElementById('blue');
 var yellow = document.getElementById('yellow');
+var commentForm = document.getElementById('comment');
+var messageComment = document.getElementById('messagecomment');
+var nameComment = document.getElementById('nameComment');
+var mailComment = document.getElementById('mailComment');
+var submitComment = document.getElementById('submitComment');
+var commentError = document.getElementById('commentError');
 var button = [red, green, blue, yellow];
 // Modals partida perdida y nombre jugador
 var lostModal = document.getElementById('lostModal');
@@ -61,6 +67,33 @@ retryBtn.addEventListener('click', function () {
     lostModal.style.display = 'none';
     resetGame();
 });
+commentForm.addEventListener('submit', function (e) {
+    e.preventDefault();
+    commentError.innerText = '';
+    var message = messageComment.value.trim();
+    var name = nameComment.value.trim();
+    var mail = mailComment.value.trim();
+    if (message.length < 5) {
+        commentError.innerText = 'El comentario debe tener al menos 5 caracteres.';
+        commentError.style.display = 'block';
+        return;
+    }
+    if (name.length < 3) {
+        commentError.innerText = 'El nombre debe tener al menos 3 caracteres.';
+        commentError.style.display = 'block';
+        return;
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(mail)) {
+        commentError.innerText = 'Por favor, ingresa un correo electrónico válido.';
+        commentError.style.display = 'block';
+        return;
+    }
+    window.location.href =
+        `mailto:ileanairiart@gmail.com?subject=Comentario de ${name}&body=${encodeURIComponent(
+            "Mensaje: " + message + "\nNombre: " + name + "\nEmail: " + mail
+        )}`;
+});
+
 // Reinicia el juego
 function resetGame() {
     patron = [];

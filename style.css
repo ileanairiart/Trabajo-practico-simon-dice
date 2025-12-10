@@ -77,6 +77,57 @@ button:active {
   background: rgba(255, 255, 50);
 }
 
+/* Estilos de el formulario de comentarios */
+form {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+form input[type="text"],
+form input[type="mail"] {
+  margin: 5px;
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid rgba(204, 204, 204);
+  font-size: 16px;
+  width: 250px;
+}
+
+form input[type="submit"] {
+  margin-top: 10px;
+  padding: 10px 20px;
+  background: rgb(26, 176, 13);
+  color: rgba(255, 255, 255);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+form input[type="submit"]:hover {
+  background: rgba(69, 160, 73);
+}
+
+form .commentError {
+  color: rgb(255, 0, 0);
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+/* Estilos del link a github */
+.githubLink {
+  margin-top: 20px;
+  color: rgba(255, 255, 255);
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.githubLink:hover {
+  text-decoration: underline;
+}
+
 /* Estilos del modal de ingreso de nombre */
 #nameModal {
   position: fixed;
@@ -247,6 +298,7 @@ button:active {
     flex-wrap: wrap;
     margin: 5px;
   }
+
   .contenedorPrincipal button {
     flex: 0 0 45%;
     margin: 5px;
