@@ -1,37 +1,36 @@
 /* Estilos generales */
 body,
 html {
+  height: 100%;
   margin: 0;
   padding: 0;
-  height: 100%;
 }
 
 body {
-  background-color: rgba(0, 0, 0);
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: flex-start;
-  color: rgba(255, 255, 255);
+  align-items: center;
+  background-color: rgb(0, 0, 0);
+  color: rgb(255, 255, 255);
   font-family: 'Lucida Console', 'Courier New', monospace;
 }
 
-.contenedorPrincipal {
-  width: 500px;
+.mainContainer {
   display: flex;
+  flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
-  flex-direction: row;
+  width: 500px;
 }
 
 /* Estilos de los botones */
 button {
-  height: 200px;
   width: 200px;
-  margin: 20px;
+  height: 200px;
+  margin: 3px;
   border: none;
   border-radius: 20px;
-  margin: 3px;
   cursor: pointer;
 }
 
@@ -41,19 +40,19 @@ button:active {
 }
 
 #red {
-  background-color: red;
+  background-color: rgb(255, 0, 0);
 }
 
 #blue {
-  background-color: blue;
+  background-color: rgb(0, 0, 255);
 }
 
 #green {
-  background-color: green;
+  background-color: rgb(0, 128, 0);
 }
 
 #yellow {
-  background-color: yellow;
+  background-color: rgb(255, 255, 0);
 }
 
 .active {
@@ -66,60 +65,60 @@ button:active {
 }
 
 #green.active {
-  background: rgba(35, 84, 35);
+  background: rgb(35, 84, 35);
 }
 
 #blue.active {
-  background: rgba(70, 70, 255);
+  background: rgb(70, 70, 255);
 }
 
 #yellow.active {
-  background: rgba(255, 255, 50);
+  background: rgb(255, 255, 50);
 }
 
 /* Estilos de el formulario de comentarios */
 form {
-  margin-top: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 20px;
 }
 
 form input[type="text"],
 form input[type="mail"] {
-  margin: 5px;
-  padding: 8px;
-  border-radius: 6px;
-  border: 1px solid rgba(204, 204, 204);
-  font-size: 16px;
   width: 250px;
+  padding: 8px;
+  margin: 5px;
+  border: 1px solid rgb(204, 204, 204);
+  border-radius: 6px;
+  font-size: 16px;
 }
 
 form input[type="submit"] {
-  margin-top: 10px;
   padding: 10px 20px;
+  margin-top: 10px;
   background: rgb(26, 176, 13);
-  color: rgba(255, 255, 255);
+  color: rgb(255, 255, 255);
+  font-weight: bold;
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  font-weight: bold;
 }
 
 form input[type="submit"]:hover {
-  background: rgba(69, 160, 73);
+  background: rgb(69, 160, 73);
 }
 
 form .commentError {
+  margin-top: 10px;
   color: rgb(255, 0, 0);
   font-weight: bold;
-  margin-top: 10px;
 }
 
 /* Estilos del link a github */
 .githubLink {
   margin-top: 20px;
-  color: rgba(255, 255, 255);
+  color: rgb(255, 255, 255);
   text-decoration: none;
   font-weight: bold;
 }
@@ -130,58 +129,58 @@ form .commentError {
 
 /* Estilos del modal de ingreso de nombre */
 #nameModal {
+  display: none;
   position: fixed;
-  top: 0;
-  left: 0;
+  justify-content: center;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.6);
-  display: none;
-  justify-content: center;
+  top: 0;
+  left: 0;
+  background: rgb(0, 0, 0, 0.6);
   align-items: center;
   z-index: 9999;
 }
 
 #nameModal .box {
-  background: rgb(157, 157, 157);
-  padding: 25px;
-  border-radius: 12px;
-  text-align: center;
-  max-width: 200px;
-  width: 90%;
-  font-family: sans-serif;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+  width: 90%;
+  max-width: 200px;
+  padding: 25px;
+  border-radius: 12px;
+  background: rgb(157, 157, 157);
   text-align: center;
+  font-family: sans-serif;
 }
 
 #nameModal input {
   width: 80%;
   padding: 8px 10px;
   margin-bottom: 15px;
-  border: 1px solid rgba(204, 204, 204);
+  border: 1px solid rgb(204, 204, 204);
   border-radius: 6px;
   font-size: 16px;
 }
 
 #nameModal button {
-  margin-top: 15px;
-  padding: 10px 20px;
-  background: rgb(26, 176, 13);
-  color: rgba(255, 255, 255);
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: bold;
-  width: 100px;
-  height: 100px;
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
+  width: 100px;
+  height: 100px;
   padding: 0;
+  margin-top: 15px;
+  border: none;
+  border-radius: 8px;
+  background: rgb(26, 176, 13);
+  color: rgb(255, 255, 255);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
 }
 
 #nameModal .box p {
@@ -190,62 +189,61 @@ form .commentError {
 }
 
 #nameModal .box #nameError {
+  padding: 5px;
+  border-radius: 5px;
+  background-color: rgb(255, 0, 0);
   color: rgb(255, 253, 253);
   font-weight: bolder;
   font-size: 10px;
-  background-color: rgb(255, 0, 0);
-  border-radius: 5px;
-  padding: 5px;
 }
 
 #nameModal button:hover {
-  background: rgba(69, 160, 73);
+  background: rgb(69, 160, 73);
 }
 
 /* Estilos del modal de juego perdido */
 #lostModal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.6);
   display: none;
+  position: fixed;
   justify-content: center;
   align-items: center;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: rgb(0, 0, 0, 0.6);
   z-index: 9999;
 }
 
 #lostModal .box {
-  background: rgba(255, 255, 255);
+  width: 50%;
+  max-width: 200px;
   padding: 25px;
   border-radius: 12px;
   text-align: center;
-  max-width: 200px;
-  width: 50%;
   font-family: sans-serif;
 }
 
 #lostModal button {
-  margin-top: 15px;
-  padding: 10px 20px;
-  background: rgba(214, 0, 0);
-  color: rgba(255, 255, 255);
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: bold;
   width: 100px;
   height: 100px;
+  padding: 10px 20px;
+  margin-top: 15px;
+  border: none;
+  border-radius: 8px;
+  background: rgb(214, 0, 0);
+  color: rgb(255, 255, 255);
+  font-weight: bold;
+  cursor: pointer;
 }
 
 #lostModal .box p {
-  color: rgba(0, 0, 0);
+  color: rgb(0, 0, 0);
   font-size: 18px;
 }
 
 .playerName {
-  color: rgba(255, 68, 68);
+  color: rgb(255, 68, 68);
   font-weight: bold;
 }
 
@@ -265,21 +263,21 @@ form .commentError {
     text-align: center;
   }
 
-  .contenedorPrincipal {
+  .mainContainer {
     width: 60%;
     padding: 10px;
     gap: 4px;
   }
 
   button {
-    height: 130px;
     width: 130px;
+    height: 130px;
     margin: 2px;
   }
 }
 
 /* media querie para tablets horizontal y vertical*/
-@media (min-width: 480px) and (max-width: 1024px) {
+@media (min-width: 481px) and (max-width: 1024px) {
 
   h1 {
     font-size: 34px;
@@ -289,17 +287,17 @@ form .commentError {
     font-size: 22px;
   }
 
-  .contenedorPrincipal {
+  .mainContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     width: 80%;
     padding: 20px;
-    gap: 10px;
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
     margin: 5px;
+    gap: 10px;
   }
 
-  .contenedorPrincipal button {
+  .mainContainer button {
     flex: 0 0 45%;
     margin: 5px;
   }
@@ -331,28 +329,5 @@ form .commentError {
 
   #nameError {
     font-size: 14px;
-  }
-}
-
-@media (max-width: 480px) {
-  h1 {
-    font-size: 30px;
-  }
-
-  h2 {
-    font-size: 25px;
-    text-align: center;
-  }
-
-  .contenedorPrincipal {
-    width: 60%;
-    padding: 10px;
-    gap: 4px;
-  }
-
-  button {
-    height: 130px;
-    width: 130px;
-    margin: 2px;
   }
 }
