@@ -1,10 +1,13 @@
-// Variables del juego
+'use strict';
+
+// Variables globales
 var state = 'pressKey';
 var patron = [];
 var level = 0;
 var userIndex = 0;
 var playerName = '';
-var userTunr = false;
+var userTurn = false;
+
 // Elementos del DOM
 var title = document.getElementById('title');
 var red = document.getElementById('red');
@@ -18,16 +21,31 @@ var mailComment = document.getElementById('mailComment');
 var submitComment = document.getElementById('submitComment');
 var commentError = document.getElementById('commentError');
 var button = [red, green, blue, yellow];
-// Modals partida perdida y nombre jugador
+
+// Modals
 var lostModal = document.getElementById('lostModal');
 var nameModal = document.getElementById('nameModal');
+
 // Botones modals
 var nameInput = document.getElementById('nameInput');
 var nameError = document.getElementById('nameError');
 var startBtn = document.getElementById('startBtn');
 var retryBtn = document.getElementById('retryBtn');
-//eventos modals
-nameInput.addEventListener('input', function () {
+
+// Eventos
+nameInput.addEventListener('input', handleNameInput);
+startBtn.addEventListener('click', handleStartClick);
+retryBtn.addEventListener('click', handleRetryClick);
+commentForm.addEventListener('submit', handleCommentSubmit);
+red.addEventListener('click', handleClick);
+green.addEventListener('click', handleClick);
+blue.addEventListener('click', handleClick);
+yellow.addEventListener('click', handleClick);
+
+// ============================
+// Funciones MODALS
+// ============================
+function handleNameInput() {
     var value = nameInput.value.trim();
     if (value.length === 0) {
         nameError.innerText = 'EL NOMBRE NO DEBE ESTAR VACIO';
@@ -40,34 +58,27 @@ nameInput.addEventListener('input', function () {
         nameError.style.display = 'block';
         startBtn.disabled = true;
         return;
-    } else {
-        startBtn.disabled = false;
-        nameError.style.display = 'none';
     }
-});
-startBtn.addEventListener('click', function () {
+    startBtn.disabled = false;
+    nameError.style.display = 'none';
+}
+
+function handleStartClick() {
     var value = nameInput.value.trim();
-    if (value.length === 0) {
-        nameError.innerText = 'EL NOMBRE NO DEBE ESTAR VACIO';
-        nameError.style.display = 'block';
-        startBtn.disabled = true;
-        return;
-    }
     if (value.length < 3) {
-        nameError.innerText = 'EL NOMBRE DEBE TENER AL MENOS 3 LETRAS';
-        nameError.style.display = 'block';
-        startBtn.disabled = true;
         return;
     }
     playerName = value;
     nameModal.style.display = 'none';
+    startGame();
 }
-);
-retryBtn.addEventListener('click', function () {
+
+function handleRetryClick() {
     lostModal.style.display = 'none';
     resetGame();
-});
-commentForm.addEventListener('submit', function (e) {
+}
+
+function handleCommentSubmit(e) {
     e.preventDefault();
     commentError.innerText = '';
     var message = messageComment.value.trim();
@@ -89,12 +100,13 @@ commentForm.addEventListener('submit', function (e) {
         return;
     }
     window.location.href =
-        `mailto:ileanairiart@gmail.com?subject=Comentario de ${name}&body=${encodeURIComponent(
-            "Mensaje: " + message + "\nNombre: " + name + "\nEmail: " + mail
-        )}`;
-});
+        'mailto:ileanairiart@gmail.com?subject=Comentario de ' + name +
+        '&body=' + encodeURIComponent('Mensaje: ' + message + '\nNombre: ' + name + '\nEmail: ' + mail);
+}
 
-// Reinicia el juego
+// ============================
+// Funciones del JUEGO
+// ============================
 function resetGame() {
     patron = [];
     level = 0;
@@ -102,18 +114,13 @@ function resetGame() {
     title.innerText = 'Presiona cualquier color para iniciar, ' + playerName;
     state = 'pressKey';
 }
-// Añade los event listeners a los botones
-red.addEventListener('click', handleClick);
-green.addEventListener('click', handleClick);
-blue.addEventListener('click', handleClick);
-yellow.addEventListener('click', handleClick);
-// Inicia el juego pidiendo el nombre del jugador
+
 function startGame() {
     if (!playerName || playerName.trim().length < 3) {
         nameModal.style.display = 'flex';
         return;
     }
-    setTimeout(() => {
+    setTimeout(function () {
         if (state === 'pressKey' || state === 'gameOver') {
             level = 0;
             patron = [];
@@ -122,24 +129,24 @@ function startGame() {
         }
     }, 300);
 }
-// Maneja los clics en los botones
+
 function handleClick(event) {
-    if (!playerName || playerName.trim().length < 3) {
-        nameModal.style.display = 'flex';
-        return;
-    }
     if (state === 'pressKey' || state === 'gameOver') {
         startGame();
         return;
     }
     buttonPress(event);
 }
-function showSecuence() {
+
+function showSequence() {
     state = 'showingPatron';
-    userTunr = false;
-    button.forEach(btn => btn.classList.add('disableClick'));
-    var i = 0;
+    userTurn = false;
+    for (var i = 0; i < button.length; i++) {
+        button[i].classList.add('disableClick');
+    }
     title.innerText = 'Mostrando secuencia';
+    var i = 0;
+
     function iluminate() {
         var btn = patron[i];
         setTimeout(function () {
@@ -149,9 +156,11 @@ function showSecuence() {
                 if (i < patron.length) {
                     iluminate();
                 } else {
-                    button.forEach(btn => btn.classList.remove('disableClick'));
+                    for (var j = 0; j < button.length; j++) {
+                        button[j].classList.remove('disableClick');
+                    }
                     title.innerText = 'Tu turno, ' + playerName + ' (Nivel ' + level + ')';
-                    userTunr = true;
+                    userTurn = true;
                     state = 'waitingUser';
                 }
             }, 400);
@@ -159,7 +168,7 @@ function showSecuence() {
     }
     iluminate();
 }
-// Inicia un nuevo nivel
+
 function newLevel() {
     state = 'waitingPatron';
     setTimeout(function () {
@@ -169,39 +178,35 @@ function newLevel() {
         patron.push(nextButton);
         userIndex = 0;
         state = 'waitingUser';
-        showSecuence();
+        showSequence();
     }, 500);
 }
-// Ilumina un botón específico
+
 function lightButton(button) {
     button.classList.add('active');
     setTimeout(function () {
         button.classList.remove('active');
     }, 300);
 }
-// Maneja la pulsación de botones por parte del usuario
-function buttonPress(event) {
 
+function buttonPress(event) {
     if (!playerName || playerName.trim().length < 3) {
         nameModal.style.display = 'flex';
         return;
     }
     if (state === 'waitingUser') {
-        var button = event.target;
-        if (button === patron[userIndex]) {
+        var clickedButton = event.target;
+        if (clickedButton === patron[userIndex]) {
             userIndex = userIndex + 1;
-            lightButton(button);
+            lightButton(clickedButton);
             if (userIndex === patron.length) {
                 newLevel();
             }
         } else {
             lostModal.style.display = 'flex';
-            document.getElementById("lostMessage").innerHTML =
-                `<span class="playerName">${playerName}</span>, 
-                perdiste en el nivel <b>${level}</b>!`;
-            lostModal.style.display = 'flex';
+            document.getElementById('lostMessage').innerHTML =
+                '<span class="playerName">' + playerName + '</span>, perdiste en el nivel <b>' + level + '</b>!';
             state = 'gameOver';
         }
     }
 }
-
